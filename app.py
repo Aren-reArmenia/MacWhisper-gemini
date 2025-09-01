@@ -107,7 +107,7 @@ def transcribe_audio():
                 init_model()
                 
             response = model.generate_content([
-                "Transcribe this audio to clean text only. Do not include timestamps, speaker labels, or any formatting. Return only the spoken words as plain text:",
+                "Transcribe the provided speech (most likely in Armenian). Remove filler words, false starts, and repetitions. Don't alter the style, grammar choices, dialect, informal expressions and jargon of the speaker. For example, don't change "տենց" to "այդպես", or "գնում ա" to "գնում է", etc. Transcribe any English or Russian words in their original script. Add punctuation for readability. Your response must only be the final transcribed text in plain format, with no markdown or anything.",
                 uploaded_file
             ])
             transcription_time = (time.time() - transcription_start) * 1000
