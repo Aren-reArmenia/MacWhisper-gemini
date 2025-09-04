@@ -120,7 +120,7 @@ def transcribe_audio():
 📁 File: {file_size_mb:.1f}MB ({ext})
 ⏱️  REQUIRED MEASUREMENTS:
    • All server process time (code working time): {all_server_process_time:.1f}ms
-   • temporary file save time: {temp_save_time:.1f}ms
+   • temporary file process time: {temp_process_time:.1f}ms
    • google upload time: {google_upload_time:.1f}ms
    • before transcript sent and after get transcript: {transcript_time:.1f}ms
 📝 Text length: {len(response.text)} chars
