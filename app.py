@@ -4,6 +4,7 @@ import io
 import time
 import logging
 import re
+import mimetypes
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
@@ -90,9 +91,18 @@ def transcribe_audio():
         buffer_time = (time.time() - buffer_start) * 1000
         logger.info(f"📥 File loaded into memory: {buffer_time:.1f}ms")
 
+        # Определяем MIME type
+        mime_type, _ = mimetypes.guess_type(f"temp.{ext}")
+        if not mime_type:
+            mime_type = "application/octet-stream"  # fallback
+
         # Загружаем в Google
         upload_start = time.time()
-        uploaded_file = genai.upload_file(file_buffer, display_name=f"temp.{ext}")
+        uploaded_file = genai.upload_file(
+            file_buffer,
+            display_name=f"temp.{ext}",
+            mime_type=mime_type
+        )
         google_upload_time = (time.time() - upload_start) * 1000
         logger.info(f"⬆️  Google upload time: {google_upload_time:.1f}ms")
 
@@ -144,7 +154,7 @@ def transcribe_audio():
 
 
 if __name__ == "__main__":
-    print("🚀 Ultra-Fast Gemini Proxy with Performance Monitoring (Optimized)")
+    print("🚀 Ultra-Fast Gemini Proxy with Performance Monitoring (Optimized + MIME fix)")
     app.run(
         host="0.0.0.0",
         port=8080,
